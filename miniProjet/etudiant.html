@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Liste des étudiants</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Liste des étudiants</h1>
+        <table id="etudiantTable" class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Âge</th>
+                    <th>CNE</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <br>
+        <button class="btn btn-success">
+            <a href="vecteur.html" style="color: white;">
+                Continuer<span class="ml-2">&rarr;</span>
+            </a>
+        </button>
+        <button class="btn btn-success"><a href="voiture.html" style="color: white;">Retour<span class="ml-2">&larr;</span></a></button>
+    </div>
+
+    <script>
+        function Etudiant(nom, prenom, age, cne) {
+            this.nom = nom;
+            this.prenom = prenom;
+            this.age = age;
+            this.cne = cne;
+        }
+
+        Etudiant.prototype.étudier = function() {
+            console.log(this.prenom + " " + this.nom + " étudie.");
+        };
+
+        // Liste des étudiants
+        var etudiants = [
+            new Etudiant("Anas", "Jahidi", 20, "K548872"),
+            new Etudiant("Samira", "Balla", 25, "KB47515"),
+            new Etudiant("Mehdi", "Ben Sellam", 21, "K548757")
+        ];
+
+        etudiants.sort(function(a, b) {
+            var nomA = a.nom.toUpperCase();
+            var nomB = b.nom.toUpperCase();
+            var prenomA = a.prenom.toUpperCase();
+            var prenomB = b.prenom.toUpperCase();
+
+            if (nomA === nomB) {
+                return (prenomA < prenomB) ? -1 : (prenomA > prenomB) ? 1 : 0;
+            } else {
+                return (nomA < nomB) ? -1 : 1;
+            }
+        });
+
+        var tbody = document.querySelector("#etudiantTable tbody");
+        etudiants.forEach(function(etudiant) {
+            var row = tbody.insertRow();
+            row.insertCell(0).textContent = etudiant.nom;
+            row.insertCell(1).textContent = etudiant.prenom;
+            row.insertCell(2).textContent = etudiant.age;
+            row.insertCell(3).textContent = etudiant.cne;
+        });
+    </script>
+</body>
+</html>

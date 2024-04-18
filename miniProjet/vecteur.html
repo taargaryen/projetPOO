@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Classes JavaScript ES6</title>
+</head>
+<body>
+    <h1>Classes JavaScript ES6</h1>
+    <div id="output"></div>
+
+    <br>
+    <button class="btn btn-success">
+        <a href="miniblog.html" style="color: white;">
+            Continuer<span class="ml-2">&rarr;</span>
+        </a>
+    </button>
+    <button class="btn btn-success"><a href="etudiant.html" style="color: white;">Retour<span class="ml-2">&larr;</span></a></button>
+
+    <script>
+        class Vecteur2D {
+            constructor(x = 0, y = 0) {
+                this.x = x;
+                this.y = y;
+            }
+
+            afficher() {
+                return `Vecteur2D : (${this.x}, ${this.y})`;
+            }
+
+            static additionner(v1, v2) {
+                return new Vecteur2D(v1.x + v2.x, v1.y + v2.y);
+            }
+        }
+
+        class Rectangle {
+            constructor(longueur = 0, largeur = 0) {
+                this.longueur = longueur;
+                this.largeur = largeur;
+                this.nom = "rectangle";
+            }
+
+            afficher() {
+                return `Rectangle : longueur = ${this.longueur}, largeur = ${this.largeur}`;
+            }
+
+            surface() {
+                return this.longueur * this.largeur;
+            }
+        }
+
+        class Carre extends Rectangle {
+            constructor(cote) {
+                super(cote, cote);
+                this.nom = "carré";
+            }
+        }
+
+        class Point {
+            constructor(x = 0.0, y = 0.0) {
+                this.x = x;
+                this.y = y;
+            }
+        }
+
+        class Segment {
+            constructor(x1, y1, x2, y2) {
+                this.orig = new Point(x1, y1);
+                this.extrem = new Point(x2, y2);
+            }
+        }
+
+        const outputDiv = document.getElementById('output');
+
+        const vecteur1 = new Vecteur2D();
+        const vecteur2 = new Vecteur2D(3, 4);
+
+        outputDiv.innerHTML += `<p>${vecteur1.afficher()}</p>`;
+        outputDiv.innerHTML += `<p>${vecteur2.afficher()}</p>`;
+
+        const sommeVecteurs = Vecteur2D.additionner(vecteur1, vecteur2);
+        outputDiv.innerHTML += `<p>Somme des vecteurs : ${sommeVecteurs.afficher()}</p>`;
+
+        const rectangle = new Rectangle(5, 4);
+        const carre = new Carre(3);
+
+        outputDiv.innerHTML += `<p>${rectangle.afficher()}</p>`;
+        outputDiv.innerHTML += `<p>${carre.afficher()}</p>`;
+
+        const segment = new Segment(1, 1, 3, 3);
+        outputDiv.innerHTML += `<p>Segment : Origine (${segment.orig.x}, ${segment.orig.y}), Extrémité (${segment.extrem.x}, ${segment.extrem.y})</p>`;
+    </script>
+</body>
+</html>

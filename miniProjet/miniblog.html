@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Blog</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Mini Blog</h1>
+
+        <div class="card my-4">
+            <h2 class="card-header">Your post</h2>
+            <div class="card-body">
+                <button id="add-post-btn" class="btn btn-success">Add Post</button>
+                <form id="post-form" style="display: none;">
+                    <div class="form-group">
+                        <label for="username">Titre:</label>
+                        <input type="text" id="username" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Description:</label>
+                        <textarea id="content" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">Publier</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2 class="card-header">Liste des messages</h2>
+            <div class="card-body">
+                <ul id="post-list" class="list-group"></ul>
+            </div>
+        </div>
+
+        <br>
+        <button class="btn btn-success"><a href="vecteur.html" style="color: white;">Retour<span class="ml-2">&larr;</span></a></button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        let posts = [];
+
+        function addPost(username, content) {
+            const post = {
+                username: username,
+                content: content
+            };
+            posts.push(post);
+        }
+
+        function displayPosts() {
+            const postList = document.getElementById("post-list");
+            postList.innerHTML = "";
+
+            posts.forEach(post => {
+                const listItem = document.createElement("li");
+                listItem.classList.add("list-group-item");
+                listItem.textContent = `${post.username}: ${post.content}`;
+                postList.appendChild(listItem);
+            });
+        }
+
+        function submitPostForm(event) {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const content = document.getElementById("content").value;
+            addPost(username, content);
+            displayPosts();
+            document.getElementById("post-form").reset();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const postForm = document.getElementById("post-form");
+            postForm.addEventListener("submit", submitPostForm);
+
+            const addPostBtn = document.getElementById("add-post-btn");
+            addPostBtn.addEventListener("click", function() {
+                const postForm = document.getElementById("post-form");
+                if (postForm.style.display === "none") {
+                    postForm.style.display = "block";
+                } else {
+                    postForm.style.display = "none";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
